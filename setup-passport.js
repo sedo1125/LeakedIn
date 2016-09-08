@@ -2,10 +2,10 @@ var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 
 var strategy = new Auth0Strategy({
-    domain:       'sedo1125.auth0.com',
-    clientID:     'O5bEWMEh0aYKX3sFjwmwQqJIu751m5UI',
-    clientSecret: '0TD6KSlLOj1QADnulr7LM7Q6KG96WrovaCiigiPVzdXdFoSHQRVQsc-jsYT5abxk',
-    callbackURL:  '/callback'
+  domain:       process.env.AUTH0_DOMAIN,
+  clientID:     process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  callbackURL:  process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
   }, function(accessToken, refreshToken, extraParams, profile, done) {
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
