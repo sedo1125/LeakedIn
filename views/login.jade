@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  script(src="https://cdn.auth0.com/js/lock/10.0/lock.min.js")
+  
+  div(id="root" style="width: 280px; margin: 40px auto; padding: 10px;")
+
+  script.
+    var options = { 
+      theme: {
+        logo : 'https://cdn2.iconfinder.com/data/icons/capsocial-square-flat-3/500/linkedin-128.png'
+        , primaryColor: 'green'
+      },
+      auth: {
+        , redirectUrl: '#{env.AUTH0_CALLBACK_URL}'
+        , responseType: 'code'
+        , params: {
+          scope: 'openid name email picture'
+        }
+      }
+    };
+    var lock = new Auth0Lock('#{env.AUTH0_CLIENT_ID}', '#{env.AUTH0_DOMAIN}', options);
+    lock.show();
+
+  

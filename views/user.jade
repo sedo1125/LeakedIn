@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  img(src="#{user.picture}")
+  h2 Welcome #{user.nickname}!
+  br
+  a(href='/logout') Logout
+  br
+  h1.
+    #{title}
+  ul
+    - each toilet, i in toilets
+      li
+        = toilet.name
+        = toilet.rating
+        = toilet.who
+        = toilet.date
+        = toilet.long
+        = toilet.lat
