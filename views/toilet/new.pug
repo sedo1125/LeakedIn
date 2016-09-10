@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    - var username = user.nickname
+    h1.
+        #{title}
+    form#formAddBlob(name="addtoilet",method="post")
+        p Name: 
+            input#inputName(type="text", value="ex. John Smith", name="name")
+        p Latitude:
+            input#inputLat(type="number", value="10", name="lat")
+        p Longitude: 
+            input#inputLong(type="number", value="10", name="long")
+        p Date: 
+            input#inputDate(type="date", name="date")
+        p Who:
+            input#inputWho(type="text", value=username, name ="who")
+        p Rating:
+            input#inputRating(type="Number", value="5", name="rating")
+        p
+            button#btnSubmit(type="submit") Submit

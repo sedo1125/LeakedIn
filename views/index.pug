@@ -2,7 +2,7 @@ extends layout
 
 block content
   script(src="https://cdn.auth0.com/js/lock/10.0/lock.min.js")
-  
+
   h1= title
   p Welcome to #{title}
   br
@@ -15,9 +15,15 @@ block content
         , params: {
           scope: 'openid name email picture'
         }
-      }});
+      },
+      theme: {
+        primaryColor: 'green',
+        logo: '/images/leakedin-icon.png'
+      },
+      languageDictionary: {
+        emailInputPlaceholder: "something@youremail.com",
+          title: "Log me in"
+        }});
     function signin() {
       lock.show();
     }
-
-  

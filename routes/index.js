@@ -30,5 +30,4 @@ router.get('/callback',
     res.redirect(req.session.returnTo || '/user');
   });
 
-
 module.exports = router;

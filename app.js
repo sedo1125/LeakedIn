@@ -6,14 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var dotenv = require('dotenv');
-var strategy = require('./setup-passport');
 var session = require('express-session');
-
 var db = require('./model/db');
 var toilet = require('./model/toilet');
 
 dotenv.load();
 
+var strategy = require('./setup-passport');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 
@@ -21,7 +20,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

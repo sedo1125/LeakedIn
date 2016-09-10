@@ -1,15 +1,17 @@
-extends layout
+extends ../layout
 
 block content
-  img(src="#{user.picture}")
+  - var url = user.picture
+  img(src=url)
   h2 Welcome #{user.nickname}!
   br
   a(href='/logout') Logout
   br
+  a(href='/user/new') New
   h1.
     #{title}
   ul
-    - each toilet, i in toilets
+   each toilet in toilets
       li
         = toilet.name
         = toilet.rating
