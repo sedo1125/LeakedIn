@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+require('mongoose-double')(mongoose);
+var SchemaTypes = mongoose.Schema.Types;
 
 //Toilet schema
 var ToiletSchema = new mongoose.Schema({
@@ -7,11 +9,11 @@ var ToiletSchema = new mongoose.Schema({
     required: true
   },
   lat: {
-    type: Number,
+    type: SchemaTypes.Double,
     required: true
   },
   long: {
-    type: Number,
+    type: SchemaTypes.Double,
     required: true
   },
   date: {

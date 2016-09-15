@@ -17,6 +17,7 @@
     "jade": "~1.11.0",
     "method-override": "^2.3.6",
     "mongoose": "^4.6.0",
+    "mongoose-double": "0.0.1",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
     "passport-auth0": "^0.5.2",

@@ -144,7 +144,7 @@ router.route('/:id')
 
   router.route('/:id/edit')
   	//GET the individual toilet by Mongo ID
-  	.get(function(req, res) {
+  	.get(ensureLoggedIn, function(req, res) {
   	    //search for the toilet within Mongo
   	    mongoose.model('toilet').findById(req.id, function (err, toilet) {
   	        if (err) {
@@ -169,7 +169,7 @@ router.route('/:id')
   	    });
   	})
   	//PUT to update a toilet by ID
-  	.put(function(req, res) {
+  	.put(ensureLoggedIn, function(req, res) {
   	    // Get our REST or form values. These rely on the "name" attributes
   	    var name = req.body.name;
         console.log('here')
@@ -198,7 +198,7 @@ router.route('/:id')
   	    });
   	})
   	//DELETE a toilet by ID
-  	.delete(function (req, res){
+  	.delete(ensureLoggedIn, function (req, res){
   	    //find toilet by ID
   	    mongoose.model('toilet').findById(req.id, function (err, toilet) {
   	        if (err) {
