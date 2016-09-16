@@ -11,6 +11,21 @@ block content
         br
         button.btn.btn-danger.login-button(onclick="signin()")
           .login LOGIN
+        br
+        br
+        br
+        p 
+          a(href='/') About
+          |  -  
+          a(href='/') Press
+          |  -  
+          a(href='/') Copyright
+          |  -  
+          a(href='/') Creaters
+          |  -  
+          a(href='/') Careers(jk)
+          |  -  
+          a(href='/') Cool
   script.
     var lock = new Auth0Lock('#{env.AUTH0_CLIENT_ID}', '#{env.AUTH0_DOMAIN}',
       { auth: {
