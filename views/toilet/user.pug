@@ -2,30 +2,45 @@ extends ../layout
 
 block content
   - var url = user.picture
-  img(src=url)
-  h2 Welcome #{user.nickname}!
-  br
-  a(href='/logout') Logout
-  br
-  a(href='/user/new') New
-  h1.
-    #{title}
-  ul
-   each toilet in toilets
-      li
-        = toilet.name
-        = toilet.rating
-        = toilet.who
-        = toilet.date
-        = toilet.long
-        = toilet.lat
-        form(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
-            input(type='hidden',value='DELETE',name='_method')
-            button(type='submit').
-                Delete
-        p 
-            a(href='/user/' + toilet._id + '/edit') Edit
-        p
-            a(href='/user/' + toilet._id) Show
-  
-  
+  .container.user-bg
+    .row
+      .col-lg-6
+        img.profile-img(src=url)
+        h2 Hey #{user.nickname}!
+      .col-lg-6
+        a.btn.btn-danger.pull-right(href='/logout') Logout
+      .col-lg-12  
+        h2.
+          #{title}
+        a.btn.btn-success(href='/user/new') New 
+        br
+        br
+        .col-lg-8.col-lg-offset-2
+          each toilet in toilets
+            br
+            .row.toilet-card
+              .col-lg-2.text-center
+                br
+                a.btn.btn-info(href='/user/' + toilet._id + '/edit') Edit
+                br
+                br
+                a.btn.btn-default(href='/user/' + toilet._id) Show 
+                br
+                br
+                form(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='DELETE',name='_method')
+                  button.btn.btn-danger(type='submit').
+                      Delete
+                br
+              .col-lg-10
+                br
+                = 'Name: ' + toilet.name 
+                br
+                = 'Stars: ' + toilet.rating
+                br
+                = 'Reviewer: ' + toilet.who
+                br
+                = 'Date reviewed: ' + toilet.date
+                br
+                = 'Longitude, Latitude: (' + toilet.long + ', ' + toilet.lat + ')'
+                br

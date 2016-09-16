@@ -3,10 +3,14 @@ extends layout
 block content
   script(src="https://cdn.auth0.com/js/lock/10.0/lock.min.js")
 
-  h1= title
-  p Welcome to #{title}
-  br
-  button(onclick="signin()") Login
+  .container.main-bg
+    .jumbotron.text-center
+        h1 Welcome to 
+        img.main-img(src='/images/main.png')
+        br
+        br
+        button.btn.btn-danger.login-button(onclick="signin()")
+          .login LOGIN
   script.
     var lock = new Auth0Lock('#{env.AUTH0_CLIENT_ID}', '#{env.AUTH0_DOMAIN}',
       { auth: {
@@ -20,7 +24,7 @@ block content
             primaryColor: 'green',
             logo: '/images/leakedin-icon.png'
           },
-          languageDictionary: {title: "Log me in"},
+          languageDictionary: {title: "Log in"},
           allowedConnections: ['facebook', 'linkedin']
       });
 
