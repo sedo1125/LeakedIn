@@ -1,11 +1,38 @@
 extends ../layout
 
 block content
-    h1.
-        ID: #{toilet._id}
-    p Name: #{toilet.name}
-    p Rating: #{toilet.rating}
-    p Posted by: #{toilet.who}
-    p Date: #{toilet.date}
-    p Longitude: #{toilet.long}
-    p Latitude: #{toilet.lat}
+  .container.user-bg
+    .row
+      .col-lg-6
+        h1 Name: #{toilet.name}
+        - var friends = toilet.rating
+        case friends
+          when 0: p This toilet sucks
+          when 1: p.star ★
+          when 2: p.star ★ ★ 
+          when 3: p.star ★ ★ ★ 
+          when 4: p.star ★ ★ ★ ★ 
+          when 5: p.star ★ ★ ★ ★ ★ 
+          default: p No ratings
+        p Posted by: #{toilet.who}
+        p= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
+        p Longitude: #{toilet.long}
+        p Latitude: #{toilet.lat}
+      .col-lg-6
+        #map(style="width:100%;height:500px;")
+  script.
+      var map;
+      var myLatLng = {lat: #{toilet.lat}, lng: #{toilet.long}}
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 15
+        });
+        var marker = new google.maps.Marker({
+         position: myLatLng,
+         map: map,
+         title: 'Hello World!',
+         icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png'
+        });
+      }
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=initMap", async, defer)

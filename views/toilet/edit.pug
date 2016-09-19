@@ -1,13 +1,40 @@
 extends ../layout
 
 block content
-    h1.
-        Toilet ID #{toilet._id}
-    form(action='/user/' + toilet._id + '/edit',method='post',name='updatetoilet',enctype='application/x-www-form-urlencoded')
-        p Name: 
-            input#inputName(type='text', value=toilet.name, name='name')
-        p 
-            input(type='hidden',value='PUT',name='_method')
-        p 
-            button#btnSubmit(type='submit').
-                Update
+  .container.user-bg
+    .row
+      .col-lg-6
+        h1.
+            Edit Review
+        form(action='/user/' + toilet._id + '/edit',method='post',name='updatetoilet',enctype='application/x-www-form-urlencoded')
+            p Name: 
+                input#inputName(type='text', value=toilet.name, name='name')
+            p Latitude:
+                input#inputLat(type="text", value=toilet.lat, name="lat")
+            p Longitude: 
+                input#inputLong(type="text", value=toilet.long, name="long")
+            p Date: 
+                input#inputDate(type="date", value=moment().format('YYYY-MM-DD'), name="date")
+            p Reviewer:
+                input#inputWho(type="text", value=toilet.who, name ="who")
+            fieldset(class="rating")
+              legend Please rate:
+              input(type="radio" id="star5" name="rating" value="5", checked=toilet.rating==5)
+              label(for="star5" title="Rocks!") 5 stars
+              input(type="radio" id="star4" name="rating" value="4", checked=toilet.rating==4)
+              label(for="star4" title="Pretty good") 4 stars
+              input(type="radio" id="star3" name="rating" value="3", checked=toilet.rating==3)
+              label(for="star3" title="Meh") 3 stars
+              input(type="radio" id="star2" name="rating" value="2", checked=toilet.rating==2)
+              label(for="star2" title="Kinda bad") 2 stars
+              input(type="radio" id="star1" name="rating" value="1", checked=toilet.rating==1)
+              label(for="star1" title="Sucks big time") 1 star
+            p 
+                input(type='hidden',value='PUT',name='_method')
+            p 
+                button#btnSubmit.btn.btn-success.btn-pull(type='submit').
+                    Update
+      .col-lg-6    
+        #map(style="width:100%;height:500px;")
+        script(type="text/javascript", src="/javascripts/maps.js")
+        script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=editMap")

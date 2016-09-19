@@ -34,8 +34,15 @@ a {
   border-radius: 2%;
 }
 
+.star {
+  color: gold;
+  font-size:200%;
+  text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
 .rating {
     float:left;
+    margin-right: 100px;
 }
 
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
@@ -88,4 +95,11 @@ a {
     position:relative;
     top:2px;
     left:2px;
+}
+
+.btn-pull {
+  float: left;
+  left: 20px;
+  bottom: -100px;
+  position: absolute;
 }

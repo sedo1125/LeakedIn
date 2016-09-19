@@ -2,33 +2,37 @@ extends ../layout
 
 block content
     - var username = user.nickname
-    h1.
-        #{title}
-    form#formAddBlob(name="addtoilet",method="post")
-        p Name: 
-            input#inputName(type="text", value="ex. John Smith", name="name")
-        p Latitude:
-            input#inputLat(type="text", value="10", name="lat")
-        p Longitude: 
-            input#inputLong(type="text", value="10", name="long")
-        p Date: 
-            input#inputDate(type="date", name="date")
-        p Who:
-            input#inputWho(type="text", value=username, name ="who")
-        fieldset(class="rating")
-          legend Please rate:
-          input(type="radio" id="star5" name="rating" value="5")
-          label(for="star5" title="Rocks!") 5 stars
-          input(type="radio" id="star4" name="rating" value="4")
-          label(for="star4" title="Pretty good") 4 stars
-          input(type="radio" id="star3" name="rating" value="3")
-          label(for="star3" title="Meh") 3 stars
-          input(type="radio" id="star2" name="rating" value="2")
-          label(for="star2" title="Kinda bad") 2 stars
-          input(type="radio" id="star1" name="rating" value="1")
-          label(for="star1" title="Sucks big time") 1 star
-        p
-            button#btnSubmit(type="submit") Submit
-        #map(style="width:70%;height:500px;")
-        script(type="text/javascript", src="/javascripts/maps.js")
-        script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=initMap")
+    .container.user-bg
+      .row
+        .col-lg-6
+          h1.
+              #{title}
+          form#formAddBlob(name="addtoilet",method="post")
+              p Name: 
+                  input#inputName(type="text", value="ex. John Smith", name="name")
+              p Latitude:
+                  input#inputLat(type="text", value="10", name="lat")
+              p Longitude: 
+                  input#inputLong(type="text", value="10", name="long")
+              p Date: 
+                  input#inputDate(type="date", value=moment().format('YYYY-MM-DD'), name="date")
+              p Reviewer:
+                  input#inputWho(type="text", value=username, name ="who")
+              fieldset(class="rating")
+                legend Please rate:
+                input(type="radio" id="star5" name="rating" value="5")
+                label(for="star5" title="Rocks!") 5 stars
+                input(type="radio" id="star4" name="rating" value="4")
+                label(for="star4" title="Pretty good") 4 stars
+                input(type="radio" id="star3" name="rating" value="3")
+                label(for="star3" title="Meh") 3 stars
+                input(type="radio" id="star2" name="rating" value="2")
+                label(for="star2" title="Kinda bad") 2 stars
+                input(type="radio" id="star1" name="rating" value="1")
+                label(for="star1" title="Sucks big time") 1 star
+              p
+                  button#btnSubmit.btn.btn-success.btn-pull(type="submit") Submit
+        .col-lg-6
+          #map(style="width:100%;height:500px;")
+          script(type="text/javascript", src="/javascripts/maps.js")
+          script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=initMap")

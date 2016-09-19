@@ -34,13 +34,16 @@ block content
                 br
               .col-lg-10
                 br
-                = 'Name: ' + toilet.name 
-                br
-                = 'Stars: ' + toilet.rating
-                br
-                = 'Reviewer: ' + toilet.who
-                br
-                = 'Date reviewed: ' + toilet.date
-                br
-                = 'Longitude, Latitude: (' + toilet.long + ', ' + toilet.lat + ')'
-                br
+                h4= 'Name: ' + toilet.name 
+                - var friends = toilet.rating
+                case friends
+                  when 0: p This toilet sucks
+                  when 1: p.star ★
+                  when 2: p.star ★ ★ 
+                  when 3: p.star ★ ★ ★ 
+                  when 4: p.star ★ ★ ★ ★ 
+                  when 5: p.star ★ ★ ★ ★ ★ 
+                  default: p No ratings
+                p= 'Reviewer: ' + toilet.who
+                p= 'Date reviewed: ' + moment(toilet.date).format('MMM D, YYYY')
+                p= 'Longitude, Latitude: (' + toilet.long + ', ' + toilet.lat + ')'

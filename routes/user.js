@@ -28,7 +28,7 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
       res.format({
         html: function() {
           res.render('toilet/user', {
-            title: 'All toilets',
+            title: 'All Bathrooms',
             "toilets": toilets,
             user: req.user
           });
@@ -172,12 +172,22 @@ router.route('/:id')
   	.put(ensureLoggedIn, function(req, res) {
   	    // Get our REST or form values. These rely on the "name" attributes
   	    var name = req.body.name;
+        var lat = req.body.lat;
+        var long = req.body.long;
+        var date = req.body.date;
+        var rating = req.body.rating;
+        var who = req.body.who;
         console.log('here')
   	    //find the document by ID
   	    mongoose.model('toilet').findById(req.id, function (err, toilet) {
   	        //update it
   	        toilet.update({
-  	            name : name,
+              name : name,
+              lat : lat,
+              long : long,
+              date : date,
+              who : who,
+              rating : rating
   	        }, function (err, toiletID) {
   	          if (err) {
   	              res.send("There was a problem updating the information to the database: " + err);
