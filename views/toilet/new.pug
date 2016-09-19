@@ -17,7 +17,7 @@ block content
               p Date: 
                   input#inputDate(type="date", value=moment().format('YYYY-MM-DD'), name="date")
               p Reviewer:
-                  input#inputWho(type="text", value=username, name ="who")
+                  input#inputWho(type="hidden", value=username, name ="who")
               fieldset(class="rating")
                 legend Please rate:
                 input(type="radio" id="star5" name="rating" value="5")
