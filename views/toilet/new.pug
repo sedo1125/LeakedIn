@@ -15,7 +15,7 @@ block content
               p Longitude: 
                   input#inputLong(type="text", value="10", name="long")
               p Date: 
-                  input#inputDate(type="date", value=moment().format('YYYY-MM-DD'), name="date")
+                  input#inputDate(type="hidden", value=moment().format('YYYY-MM-DD'), name="date")
               p Reviewer:
                   input#inputWho(type="hidden", value=username, name ="who")
               fieldset(class="rating")

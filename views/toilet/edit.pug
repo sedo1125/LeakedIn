@@ -14,7 +14,7 @@ block content
             p Longitude: 
                 input#inputLong(type="text", value=toilet.long, name="long")
             p Date: 
-                input#inputDate(type="date", value=moment().format('YYYY-MM-DD'), name="date")
+                input#inputDate(type="hidden", value=moment().format('YYYY-MM-DD'), name="date")
             p Reviewer:
                 input#inputWho(type="hidden", value=toilet.who, name ="who")
             fieldset(class="rating")
