@@ -9,10 +9,10 @@ block content
         form(action='/user/' + toilet._id + '/edit',method='post',name='updatetoilet',enctype='application/x-www-form-urlencoded')
             p Name: 
                 input#inputName(type='text', value=toilet.name, name='name')
-            p Latitude:
-                input#inputLat(type="text", value=toilet.lat, name="lat")
-            p Longitude: 
-                input#inputLong(type="text", value=toilet.long, name="long")
+            p 
+                input#inputLat(type="hidden", value=toilet.lat, name="lat")
+            p 
+                input#inputLong(type="hidden", value=toilet.long, name="long")
             p 
                 input#inputDate(type="hidden", value=moment().format('YYYY-MM-DD'), name="date")
             p 

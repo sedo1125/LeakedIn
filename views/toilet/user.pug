@@ -4,37 +4,22 @@ block content
   - var url = user.picture
   .container.user-bg
     .row
-      .col-lg-6
+      .col-lg-6.col-xs-6
         img.profile-img(src=url)
-        h2 Hey #{user.nickname}!
-      .col-lg-6
+      .col-lg-6.col-xs-6
         a.btn.btn-danger.pull-right(href='/logout') Logout
-      .col-lg-12  
-        h2.
-          #{title}
-        a.btn.btn-success(href='/user/new') New 
+      .col-lg-12.text-center.clear 
+        h2 Hey #{user.nickname}!
+        a.new-toilet.btn.btn-success(href='/user/new') NEW BATHROOM 
         br
         br
         .col-lg-8.col-lg-offset-2
           each toilet in toilets
             br
             .row.toilet-card
-              .col-lg-2.text-center
+              .col-lg-12
                 br
-                a.btn.btn-info(href='/user/' + toilet._id + '/edit') Edit
-                br
-                br
-                a.btn.btn-default(href='/user/' + toilet._id) Show 
-                br
-                br
-                form(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
-                  input(type='hidden',value='DELETE',name='_method')
-                  button.btn.btn-danger(type='submit').
-                      Delete
-                br
-              .col-lg-10
-                br
-                h4= 'Name: ' + toilet.name 
+                h4= toilet.name 
                 - var friends = toilet.rating
                 case friends
                   when 0: p This toilet sucks
@@ -45,5 +30,13 @@ block content
                   when 5: p.star ★ ★ ★ ★ ★ 
                   default: p No ratings
                 p= 'Reviewer: ' + toilet.who
-                p= 'Date reviewed: ' + moment(toilet.date).format('MMM D, YYYY')
-                p= 'Longitude, Latitude: (' + toilet.long + ', ' + toilet.lat + ')'
+                p= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
+                p= 'Coordinates: (' + toilet.long + ', ' + toilet.lat + ')'
+                a.btn.btn-default(href='/user/' + toilet._id + '/edit') Edit 
+                | 
+                a.btn.btn-default(href='/user/' + toilet._id) Map 
+                | 
+                form.delete-but(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='DELETE',name='_method')
+                  button.btn.btn-danger(type='submit').
+                      X

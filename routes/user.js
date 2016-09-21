@@ -28,7 +28,6 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
       res.format({
         html: function() {
           res.render('toilet/user', {
-            title: 'All Bathrooms',
             "toilets": toilets,
             user: req.user
           });

@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 30px 3px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url("../images/main-bg.jpg");
   background-position: no-repeat fixed center;
@@ -15,6 +15,20 @@ a {
 
 .main-img {
   width: 80%;
+}
+
+.clear {
+  padding-top: 10px;
+  clear: both;
+}
+
+.new-toilet {
+  padding: 2% 25% !important
+}
+
+.delete-but {
+  display: inline-block;
+  padding-bottom: 15px;
 }
 
 .user-bg {
@@ -41,8 +55,10 @@ a {
 }
 
 .rating {
-    float:left;
+    display: inline-block;
     margin-right: 100px;
+    width: 140px;
+    padding-bottom: 25px;
 }
 
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
@@ -95,11 +111,4 @@ a {
     position:relative;
     top:2px;
     left:2px;
-}
-
-.btn-pull {
-  float: left;
-  left: 20px;
-  bottom: -100px;
-  position: absolute;
 }
