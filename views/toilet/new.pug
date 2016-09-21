@@ -6,7 +6,7 @@ block content
       .row
         .col-lg-6
           h1.
-              #{title}
+              #{title}  
           form#formAddBlob(name="addtoilet",method="post")
               p Name: 
                   input#inputName(type="text", value="ex. John Smith", name="name")
@@ -33,6 +33,8 @@ block content
               p
                   button#btnSubmit.btn.btn-success.btn-pull(type="submit") Submit
         .col-lg-6
+          button#LocateMe.btn.btn-info.btn-map My Location
+          input#pac-input.controls(type="text" placeholder="Search Box")
           #map(style="width:100%;height:500px;")
           script(type="text/javascript", src="/javascripts/maps.js")
-          script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=initMap")
+    script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&libraries=places&callback=initMap")
