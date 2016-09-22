@@ -1,7 +1,8 @@
 extends ../layout
 
 block content
-  - var url = user.picture
+  - var url = user.picture;
+  - var i = 1;
   .container.user-bg
     .row
       .col-lg-6.col-xs-6
@@ -13,6 +14,7 @@ block content
         a.new-toilet.btn.btn-success(href='/user/new') NEW BATHROOM 
         br
         br
+        #map(style="width:100%;height:400px;")
         .col-lg-8.col-lg-offset-2
           each toilet in toilets
             br
@@ -31,12 +33,40 @@ block content
                   default: p No ratings
                 p= 'Reviewer: ' + toilet.who
                 p= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
-                p= 'Coordinates: (' + toilet.long + ', ' + toilet.lat + ')'
-                a.btn.btn-default(href='/user/' + toilet._id + '/edit') Edit 
+                p(id='div-'+i)= 'Coordinates: (' + toilet.long + ', ' + toilet.lat + ')'
+                a.btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
                 | 
-                a.btn.btn-default(href='/user/' + toilet._id) Map 
-                | 
-                form.delete-but(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
-                  input(type='hidden',value='DELETE',name='_method')
-                  button.btn.btn-danger(type='submit').
-                      X
+                a.btn.btn-default.margin-bot(href='/user/' + toilet._id) Map 
+                
+                //- form.delete-but(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
+                //-   input(type='hidden',value='DELETE',name='_method')
+                //-   button.btn.btn-danger(type='submit').
+                //-       X
+  script.
+      function loadAll() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+        });
+        var me = new google.maps.Marker({
+          map: map,
+        });
+
+        var toilets = new google.maps.Marker({
+          map: map,
+          icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png',
+          position: {lat: 0, lng: 0}
+        })
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      
+                // Create a marker and center map on user location
+                me.setPosition(pos);
+                map.setCenter(pos);
+                map.setZoom(15)
+            });
+        }
+      
+      }
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=loadAll", async, defer)
+                

@@ -1,28 +1,28 @@
+
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: {lat: 0, lng: 0},
     zoom: 14
   });
-
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  var geolocationDiv = document.getElementById('LocateMe');
-  var geolocationControl = new GeolocationControl(geolocationDiv, map);
-
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(geolocationDiv);
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
   var markers = new google.maps.Marker({
     position: {lat: 0, lng: 0},
     map: map,
     draggable: true,
     icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png'
+  });
+
+  var input = document.getElementById('pac-input');
+  var geolocationDiv = document.getElementById('LocateMe');
+  var searchBox = new google.maps.places.SearchBox(input);
+  var geolocationControl = new GeolocationControl(geolocationDiv, map);
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(geolocationDiv);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
   });
 
   // Try HTML5 geolocation.
@@ -34,11 +34,10 @@ function initMap() {
       };
 
       markers.setPosition(pos);
-
+      map.setCenter(pos);
       document.getElementById('inputLat').value = position.coords.latitude;
       document.getElementById('inputLong').value = position.coords.longitude;
-
-      map.setCenter(pos);
+      map.setZoom(18)
     }, function() {
       handleLocationError(true, map.getCenter());
     });
@@ -52,68 +51,66 @@ function initMap() {
   });
 
   google.maps.event.addListener(map, 'click', function(event) {
-
       markers.setPosition(event.latLng);
       document.getElementById("inputLat").value = event.latLng.lat();
       document.getElementById("inputLong").value = event.latLng.lng();
   });
 
-
   searchBox.addListener('places_changed', function() {
-  var places = searchBox.getPlaces();
-
-  if (places.length == 0) {
-    return;
-  }
-
-  // For each place, get the icon, name and location.
-  var bounds = new google.maps.LatLngBounds();
-  places.forEach(function(place) {
-    if (!place.geometry) {
-      console.log("Returned place contains no geometry");
+    var places = searchBox.getPlaces();
+    if (places.length == 0) {
       return;
     }
-    var latitude = place.geometry.location.lat();
-    var longitude = place.geometry.location.lng();
-    // Create a marker for each place.
-    pos = {lat: latitude,
-            lng: longitude}
 
-    markers.setPosition(pos);
-    document.getElementById("inputLat").value = latitude;
-    document.getElementById("inputLong").value = longitude;
-    map.setCenter(pos);
-    if (place.geometry.viewport) {
-      // Only geocodes have viewport.
-      bounds.union(place.geometry.viewport);
-    } else {
-      bounds.extend(place.geometry.location);
-    }
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      var latitude = place.geometry.location.lat();
+      var longitude = place.geometry.location.lng();
+      // Create a marker for each place.
+      pos = {lat: latitude,
+              lng: longitude}
+
+      markers.setPosition(pos);
+      document.getElementById("inputLat").value = latitude;
+      document.getElementById("inputLong").value = longitude;
+      map.setCenter(pos);
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
   });
-  map.fitBounds(bounds);
-});
 
-function GeolocationControl(controlDiv, map) {
-    // Set CSS for the control button
-    var controlUI = document.getElementById('LocateMe')
-    // Setup the click event listeners to geolocate user
-    google.maps.event.addDomListener(controlUI, 'click', geolocate);
-}
+  function GeolocationControl(controlDiv, map) {
+      // Set CSS for the control button
+      var controlUI = document.getElementById('LocateMe')
+      // Setup the click event listeners to geolocate user
+      google.maps.event.addDomListener(controlUI, 'click', geolocate);
+  }
 
-function geolocate() {
+  function geolocate() {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+              pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-            // Create a marker and center map on user location
-            markers.setPosition(pos);
-            document.getElementById("inputLat").value = position.coords.latitude;
-            document.getElementById("inputLong").value = position.coords.longitude;
-            map.setCenter(pos);
-        });
-    }
-}
+              // Create a marker and center map on user location
+              markers.setPosition(pos);
+              document.getElementById("inputLat").value = position.coords.latitude;
+              document.getElementById("inputLong").value = position.coords.longitude;
+              map.setCenter(pos);
+              map.setZoom(18)
+          });
+      }
+  }
 
 }
 
@@ -153,7 +150,7 @@ function showMap() {
 
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: lat, lng: long},
-    zoom: 14
+    zoom: 18
   });
 
   var marker = new google.maps.Marker({

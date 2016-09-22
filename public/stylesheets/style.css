@@ -48,6 +48,10 @@ a {
   border-radius: 2%;
 }
 
+.margin-bot {
+  margin-bottom: 10px !important;
+}
+
 .star {
   color: gold;
   font-size:200%;
