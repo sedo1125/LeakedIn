@@ -24,11 +24,11 @@ block content
                 - var friends = toilet.rating
                 case friends
                   when 0: p This toilet sucks
-                  when 1: p.star ★
-                  when 2: p.star ★ ★ 
-                  when 3: p.star ★ ★ ★ 
-                  when 4: p.star ★ ★ ★ ★ 
-                  when 5: p.star ★ ★ ★ ★ ★ 
+                  when 1: p.star(name='stars') ★
+                  when 2: p.star(name='stars') ★ ★ 
+                  when 3: p.star(name='stars') ★ ★ ★ 
+                  when 4: p.star(name='stars') ★ ★ ★ ★ 
+                  when 5: p.star(name='stars') ★ ★ ★ ★ ★ 
                   default: p No ratings
                 h4= 'Reviewer: ' + toilet.who
                 h4= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
@@ -56,23 +56,29 @@ block content
       });
 
       var myArray = [];
-      var lat, long
+      var lat, long, stars, infowindow
       var count = document.getElementsByName('lat').length
       var i = 0
       var toilets;
-      for (i = 0; i < count-1; i++) {
+      for (i = 0; i < count; i++) {
         lat = document.getElementsByName('lat')[i].innerHTML;
         long = document.getElementsByName('long')[i].innerHTML;
+        stars = document.getElementsByName('stars')[i].innerHTML;
         toilets = new google.maps.Marker({
           map: map,
           icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png',
-          position: {lat: parseFloat(lat), lng: parseFloat(long)}
+          position: {lat: parseFloat(lat), lng: parseFloat(long)},
         })
-      }
-      console.log(myArray)
       
-
-      
+      var content =  stars
+      var infowindow = new google.maps.InfoWindow()
+      google.maps.event.addListener(toilets,'click', (function(toilets,content,infowindow){ 
+          return function() {
+              infowindow.setContent(content);
+              infowindow.open(map,toilets);
+          };
+      })(toilets,content,infowindow));  
+    }
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function (position) {
               var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);

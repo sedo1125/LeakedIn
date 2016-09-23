@@ -22,7 +22,8 @@ block content
         #map(style="width:100%;height:500px;")
   script.
       var map;
-      var myLatLng = {lat: #{toilet.lat}, lng: #{toilet.long}}
+      var myLatLng = {lat: #{toilet.lat}, 
+                      lng: #{toilet.long}}
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: myLatLng,
