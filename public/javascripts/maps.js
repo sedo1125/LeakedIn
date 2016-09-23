@@ -142,26 +142,3 @@ function editMap() {
   });
 
 }
-
-
-function showMap() {
-  var lat = parseFloat(document.getElementById("inputLat").value)
-  var long = parseFloat(document.getElementById("inputLong").value)
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: lat, lng: long},
-    zoom: 18
-  });
-
-  var marker = new google.maps.Marker({
-    position: {lat: lat, lng: long},
-    map: map,
-    draggable: false,
-    icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png'
-  });
-
-  var infoWindow = new google.maps.InfoWindow({
-      content: "Hi"
-  });
-  infoWindow.open(map, marker);
-}

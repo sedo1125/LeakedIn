@@ -2,7 +2,6 @@ extends ../layout
 
 block content
   - var url = user.picture;
-  - var i = 1;
   .container.user-bg
     .row
       .col-lg-6.col-xs-6
@@ -18,10 +17,10 @@ block content
         .col-lg-8.col-lg-offset-2
           each toilet in toilets
             br
-            .row.toilet-card
+            #toilet.row.toilet-card
               .col-lg-12
                 br
-                h4= toilet.name 
+                h3= toilet.name 
                 - var friends = toilet.rating
                 case friends
                   when 0: p This toilet sucks
@@ -31,42 +30,59 @@ block content
                   when 4: p.star ★ ★ ★ ★ 
                   when 5: p.star ★ ★ ★ ★ ★ 
                   default: p No ratings
-                p= 'Reviewer: ' + toilet.who
-                p= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
-                p(id='div-'+i)= 'Coordinates: (' + toilet.long + ', ' + toilet.lat + ')'
-                a.btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
+                h4= 'Reviewer: ' + toilet.who
+                h4= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
+                p5= 'Coordinates: ('
                 | 
+                span#lat(name='lat')= toilet.lat
+                |, 
+                span#long(name='long')= toilet.long
+                | 
+                p5= ')'
+                br
+                a.btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
+                |  
                 a.btn.btn-default.margin-bot(href='/user/' + toilet._id) Map 
-                
                 //- form.delete-but(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
                 //-   input(type='hidden',value='DELETE',name='_method')
                 //-   button.btn.btn-danger(type='submit').
                 //-       X
   script.
-      function loadAll() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-        });
-        var me = new google.maps.Marker({
-          map: map,
-        });
+    function loadAll() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+      });
+      var me = new google.maps.Marker({
+        map: map
+      });
 
-        var toilets = new google.maps.Marker({
+      var myArray = [];
+      var lat, long
+      var count = document.getElementsByName('lat').length
+      var i = 0
+      var toilets;
+      for (i = 0; i < count-1; i++) {
+        lat = document.getElementsByName('lat')[i].innerHTML;
+        long = document.getElementsByName('long')[i].innerHTML;
+        toilets = new google.maps.Marker({
           map: map,
           icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png',
-          position: {lat: 0, lng: 0}
+          position: {lat: parseFloat(lat), lng: parseFloat(long)}
         })
-        
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      
-                // Create a marker and center map on user location
-                me.setPosition(pos);
-                map.setCenter(pos);
-                map.setZoom(15)
-            });
-        }
-      
       }
+      console.log(myArray)
+      
+
+      
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              me.setPosition(pos);
+              map.setCenter(pos);
+              map.setZoom(15)
+          });
+      }
+    }
   script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=loadAll", async, defer)
-                
+
+
+          
