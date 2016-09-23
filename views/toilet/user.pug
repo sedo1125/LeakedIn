@@ -43,51 +43,12 @@ block content
                 a.btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
                 |  
                 a.btn.btn-default.margin-bot(href='/user/' + toilet._id) Map 
+                | 
                 //- form.delete-but(action='/user/' + toilet._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
                 //-   input(type='hidden',value='DELETE',name='_method')
-                //-   button.btn.btn-danger(type='submit').
+                //-   button.btn.btn-danger.margin-bot(type='submit').
                 //-       X
-  script.
-    function loadAll() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-      });
-      var me = new google.maps.Marker({
-        map: map
-      });
-
-      var myArray = [];
-      var lat, long, stars, infowindow
-      var count = document.getElementsByName('lat').length
-      var i = 0
-      var toilets;
-      for (i = 0; i < count; i++) {
-        lat = document.getElementsByName('lat')[i].innerHTML;
-        long = document.getElementsByName('long')[i].innerHTML;
-        stars = document.getElementsByName('stars')[i].innerHTML;
-        toilets = new google.maps.Marker({
-          map: map,
-          icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png',
-          position: {lat: parseFloat(lat), lng: parseFloat(long)},
-        })
-      
-      var content =  stars
-      var infowindow = new google.maps.InfoWindow()
-      google.maps.event.addListener(toilets,'click', (function(toilets,content,infowindow){ 
-          return function() {
-              infowindow.setContent(content);
-              infowindow.open(map,toilets);
-          };
-      })(toilets,content,infowindow));  
-    }
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-              var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-              me.setPosition(pos);
-              map.setCenter(pos);
-              map.setZoom(15)
-          });
-      }
-    }
+  script(type="text/javascript", src="/javascripts/maps.js")
   script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgil07aflQPZ-H8VhK4cIXgQndv4UfYk&callback=loadAll", async, defer)
 
 

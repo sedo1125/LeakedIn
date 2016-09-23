@@ -8,7 +8,6 @@ var env = {
   AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 };
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'LeakedIn', env: env});
