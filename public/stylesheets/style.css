@@ -26,6 +26,10 @@ a {
   padding: 2% 25% !important
 }
 
+#inputComments {
+  height: 100px;
+}
+
 .delete-but {
   display: inline-block;
   padding-bottom: 15px;

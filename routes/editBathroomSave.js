@@ -12,6 +12,8 @@ function editBathroomSave(req, res) {
     var date = req.body.date;
     var rating = req.body.rating;
     var who = req.body.who;
+    var comments = req.body.comments;
+    var address = req.body.address;
     console.log('here')
     //find the document by ID
     mongoose.model('toilet').findById(req.id, function (err, toilet) {
@@ -22,7 +24,9 @@ function editBathroomSave(req, res) {
           long : long,
           date : date,
           who : who,
-          rating : rating
+          rating : rating,
+          comments : comments,
+          address : address
         }, function (err, toiletID) {
           if (err) {
               res.send("There was a problem updating the information to the database: " + err);

@@ -32,15 +32,24 @@ block content
                   default: p No ratings
                 h4= 'Reviewer: ' + toilet.who
                 h4= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
-                p5= 'Coordinates: ('
-                | 
-                span#lat(name='lat')= toilet.lat
-                |, 
-                span#long(name='long')= toilet.long
-                | 
-                p5= ')'
+                #hidden.hidden
+                  p5= 'Coordinates: ('
+                  | 
+                  span#lat(name='lat')= toilet.lat
+                  |, 
+                  span#long(name='long')= toilet.long
+                  | 
+                  p5= ')'
+                  br
+                p5= toilet.address
                 br
-                a.btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
+                p5= toilet.comments
+                br
+                - var mine = "hidden"
+                - if (user.nickname == toilet.who) {
+                -   mine = ""
+                - }
+                a(class=mine).btn.btn-default.margin-bot(href='/user/' + toilet._id + '/edit') Edit 
                 |  
                 a.btn.btn-default.margin-bot(href='/user/' + toilet._id) Map 
                 | 

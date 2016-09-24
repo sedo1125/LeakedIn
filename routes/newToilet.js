@@ -11,6 +11,8 @@ function newToilet(req, res, next) {
   var date = req.body.date;
   var who = req.body.who;
   var rating = req.body.rating;
+  var comments = req.body.comments;
+  var address = req.body.address;
   //call the create function for our database
   mongoose.model('toilet').create({
       name : name,
@@ -18,7 +20,9 @@ function newToilet(req, res, next) {
       long : long,
       date : date,
       who : who,
-      rating : rating
+      rating : rating,
+      comments : comments,
+      address : address
   }, function (err, toilet) {
         if (err) {
             res.send(err);

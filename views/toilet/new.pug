@@ -9,7 +9,7 @@ block content
               #{title}  
           form#formAddBlob(name="addtoilet",method="post")
               p Name: 
-                  input#inputName(type="text", value="ex. John Smith", name="name")
+                  input#inputName.form-control(type="text", value="ex. John Smith", name="name")
               p
                   input#inputLat(type="hidden", value="10", name="lat")
               p 
@@ -30,6 +30,10 @@ block content
                 label(for="star2" title="Kinda bad") 2 stars
                 input(type="radio" id="star1" name="rating" value="1")
                 label(for="star1" title="Sucks big time") 1 star
+              p
+                  textarea#inputComments.form-control(type="text", name="comments") "Comments"
+              p
+                  input#inputAddress(type="hidden", value="Address", name="address")
               p
                   button#btnSubmit.btn.btn-success.btn-pull(type="submit") Submit
         .col-lg-6

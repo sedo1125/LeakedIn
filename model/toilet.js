@@ -27,6 +27,12 @@ var ToiletSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true
+  },
+  comments: {
+    type: String
+  },
+  address: {
+    type: String
   }
 });
 

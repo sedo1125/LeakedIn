@@ -18,6 +18,8 @@ block content
         p= 'Date: ' + moment(toilet.date).format('MMM D, YYYY')
         p Longitude: #{toilet.long}
         p Latitude: #{toilet.lat}
+        p Address: #{toilet.address}
+        p Comments: #{toilet.comments}
       .col-lg-6
         #map(style="width:100%;height:500px;")
   script.

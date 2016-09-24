@@ -51,8 +51,12 @@ function geoLocateMe(map, me) {
 }
 
 function setPos(latLng, map) {
+  var geocoder = new google.maps.Geocoder;
   document.getElementById("inputLat").value = latLng.lat();
   document.getElementById("inputLong").value = latLng.lng();
+  geocoder.geocode({'location': latLng}, function(results, status) {
+    document.getElementById('inputAddress').value = results[0].formatted_address
+  })
 }
 
 function initMap() {
@@ -66,7 +70,7 @@ function initMap() {
     draggable: true,
     icon: 'http://maps.google.com/mapfiles/kml/shapes/toilets.png'
   });
-
+  var geocoder = new google.maps.Geocoder;
   var input = document.getElementById('pac-input');
   var geolocationDiv = document.getElementById('LocateMe');
   var searchBox = new google.maps.places.SearchBox(input);
@@ -112,6 +116,9 @@ function initMap() {
         markers.setPosition(pos);
         document.getElementById("inputLat").value = latitude;
         document.getElementById("inputLong").value = longitude;
+        geocoder.geocode({'location': pos}, function(results, status) {
+          document.getElementById('inputAddress').value = results[0].formatted_address
+        })
         map.setCenter(pos);
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
@@ -139,6 +146,9 @@ function initMap() {
               markers.setPosition(pos);
               document.getElementById("inputLat").value = position.coords.latitude;
               document.getElementById("inputLong").value = position.coords.longitude;
+              geocoder.geocode({'location': pos}, function(results, status) {
+                document.getElementById('inputAddress').value = results[0].formatted_address
+              })
               map.setCenter(pos);
               map.setZoom(18)
           });
@@ -170,8 +180,7 @@ function editMap() {
   infoWindow.open(map, marker);
 
   google.maps.event.addListener(marker, 'dragend', function (event) {
-    document.getElementById("inputLat").value = this.getPosition().lat();
-    document.getElementById("inputLong").value = this.getPosition().lng();
+    setPos(event.latLng, map);
   });
 
 }
