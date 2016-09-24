@@ -3,6 +3,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url("../images/main-bg.jpg");
   background-position: no-repeat fixed center;
+  background-attachment: fixed;
 }
 
 a {
